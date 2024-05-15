@@ -8,11 +8,23 @@ connect();
 export const POST = async (request) => {
   try {
     const req = await request.json();
-    const { todo, id } = req;
+    const { updatedTodo, id } = req;
 
-    if (todo) {
-      Todo.findByIdAndUpdate(id);
+    if (!updatedTodo || !id) {
+      return NextResponse.json(
+        { message: "Missing updatedTodo or id in request" },
+        { status: 400 }
+      );
     }
+    const newTodo = await Todo.findByIdAndUpdate(
+      id,
+      { $set: { todo: updatedTodo } },
+      { new: true }
+    );
+    return NextResponse.json({
+      message: "Todo Updated Succesfly",
+      data: newTodo,
+    });
   } catch (error) {
     return NextResponse.json(
       { message: "Error in Updating Todo" },
