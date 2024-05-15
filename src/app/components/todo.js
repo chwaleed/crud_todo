@@ -22,9 +22,7 @@ function Todo(props) {
         id: props.id,
         updatedTodo,
       });
-      console.log("HELLO");
       window.location.reload(false);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
