@@ -28,7 +28,7 @@ function page() {
   return (
     <div className="bg-[#6918b4] flex flex-col items-center py-12">
       <h1 className="text-white text-[4rem] font-semibold">Todo App</h1>
-      <div className="flex w-[30rem]  mt-9 items-center justify-center">
+      <div className="flex w-[30rem] mb-6  mt-9 items-center justify-center">
         <input
           placeholder="Add Task"
           type="text"
@@ -43,10 +43,11 @@ function page() {
           Add Todo
         </button>
       </div>
-
-      {data.map((item, index) => (
-        <Todo todo={item.todo} id={item._id} key={index} />
-      ))}
+      <div className="flex flex-col gap-4">
+        {data.map((item, index) => (
+          <Todo todo={item.todo} id={item._id} key={index} />
+        ))}
+      </div>
     </div>
   );
 }

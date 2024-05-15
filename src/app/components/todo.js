@@ -16,7 +16,7 @@ function Todo(props) {
   };
 
   return (
-    <div className="flex bg-[#36117e] mt-9 w-[30rem]  rounded-md px-3 items-center justify-between ">
+    <div className="flex bg-[#36117e]  w-[30rem]  rounded-md px-3 items-center justify-between ">
       <input
         type="text"
         value={props.todo}
