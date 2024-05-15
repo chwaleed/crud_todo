@@ -15,21 +15,19 @@ function Todo(props) {
       console.log(error);
     }
   };
-  const editTodo = async (id) => {
-    const editTodo = async () => {
-      try {
-        if (!todoEditable) {
-          const response = await axios.post("/api/editTodo", {
-            id: props.id,
-            updatedTodo,
-          });
-          console.log(response.data);
-          setTodoEditable(false); // Set todoEditable to false after successfully updating todo
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+
+  const editTodo = async () => {
+    try {
+      const response = await axios.post("/api/editTodo", {
+        id: props.id,
+        updatedTodo,
+      });
+      console.log("HELLO");
+      window.location.reload(false);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const onUpdated = (e) => {
     setUpdatedTodo(e.target.value);
@@ -40,7 +38,6 @@ function Todo(props) {
       <input
         type="text"
         value={updatedTodo}
-        onClick={() => editTodo(props.id)}
         onChange={(e) => onUpdated(e)}
         disabled={!todoEditable}
         className=" outline-none bg-[#36117e]  px-4 py-2 text-[1.2rem]  text-white   "
@@ -48,10 +45,21 @@ function Todo(props) {
 
       <div className="flex gap-3">
         <button
-          onClick={() => setTodoEditable((prev) => !prev)}
+          disabled={!todoEditable}
+          onClick={() => {
+            editTodo();
+            setTodoEditable(false);
+          }}
           className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
         >
-          {todoEditable ? "📁" : "✏️"}
+          📁
+        </button>
+        <button
+          onClick={() => setTodoEditable(true)}
+          disabled={todoEditable}
+          className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
+        >
+          ✏️
         </button>
         <button
           className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
